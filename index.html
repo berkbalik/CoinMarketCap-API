@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Vue.js</title>
+</head>
+<body style="background: #F7F9F8;">
+
+<div class="container" id="app">
+	<div class="row">
+		<div class="col-md-6 pb-2">
+			<p class="h1">CoinMarketCap Top 100</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<input type="text" class="form-control float-left" v-model="search" placeholder="Search coin">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<p class="h5 float-left">{{ filteredCoins.length }} Coins found</p>			
+		</div>
+	<!-- </div> -->
+
+	<!-- <div class="row"> -->
+		<div class="col-md-6">
+			<div class="btn-group dropleft float-right">
+			  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    Quick View
+			  </button>
+			  <div class="dropdown-menu">
+			    <a v-bind:href="'https://coinmarketcap.com/currencies/' + coin.website_slug" target="_blank" class="dropdown-item" v-for="coin in filteredCoins">{{coin.rank}} - <img v-bind:src="'https://s2.coinmarketcap.com/static/img/coins/16x16/' + coin.id + '.png'"/> | {{ coin.name }} [{{ coin.symbol}}] | {{coin.quotes['USD']['percent_change_1h']}}%</a>
+			  </div>
+			</div>			
+		</div>
+	</div>
+
+	<div class="col-12">
+		<div class="row">
+			<div v-if="!filteredCoins.length" class="col-12 mt-5 pt-5 text-center">
+				<p class="h2">No result :(</p>
+			</div>
+    		<div class="col-3 p-0" v-for="coin in filteredCoins">
+    			<a v-bind:href="'https://coinmarketcap.com/currencies/' + coin.website_slug" target="_blank">
+		    	<div class="p-0 m-3 text-center" id="box">
+
+		    			<img v-bind:src="'https://s2.coinmarketcap.com/static/img/coins/32x32/' + coin.id + '.png'" class="mt-3" />
+		    			<p class="h2 text-primary">{{ coin.name }}</p>
+		    			<p class="h4 text-secondary">${{ coin.quotes['USD']['price'] }}</p>
+		    			<p class="h5 text-secondary">1h: {{ coin.quotes['USD']['percent_change_1h'] }}%</p>
+		    			<p class="h6 text-secondary pb-3">Rank: {{ coin.rank }}</p>
+		    			
+		    	</div>
+		    	</a>
+    		</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
+
+
